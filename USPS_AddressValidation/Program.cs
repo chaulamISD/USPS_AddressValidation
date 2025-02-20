@@ -26,12 +26,10 @@ class Program
         string Zip = "";
 
         string requestAddress;
-        if (Zip == "")
-        {
+        if (Zip == "") {
             requestAddress = "streetAddress=" + Address1 + "&secondaryAddress=" + Address2 + "&city=" + City + "&state=" + State;
         }
-        else
-        {
+        else  {
             requestAddress = "streetAddress=" + Address1 + "&secondaryAddress=" + Address2 + "&city=" + City + "&state=" + State + "&ZIPCode=" + Zip;
         }
 
@@ -40,8 +38,7 @@ class Program
         using HttpClient client = new();
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {uspsToken}");
 
-        try
-        {
+        try {
             HttpResponseMessage response = await client.GetAsync(requestUrl);
             response.EnsureSuccessStatusCode();
 
@@ -57,8 +54,7 @@ class Program
             Console.WriteLine("Zip: " + reponse?.Address.ZIPCode);
             Console.WriteLine("Zip+4: " + reponse?.Address.ZIPPlus4);
         }
-        catch (HttpRequestException e)
-        {
+        catch (HttpRequestException e) {
             Console.WriteLine($"Request error: {e.Message}");
         }
 
@@ -104,8 +100,7 @@ class Program
 
             HttpResponseMessage response = await client.SendAsync(request);
 
-            if (response.IsSuccessStatusCode)
-            {
+            if (response.IsSuccessStatusCode) {
                 string responseContent = await response.Content.ReadAsStringAsync();
                 var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
 
@@ -114,8 +109,7 @@ class Program
 
                 return tokenResponse.AccessToken;
             }
-            else
-            {
+            else {
                 throw new Exception($"Error: {response.StatusCode}, {await response.Content.ReadAsStringAsync()}");
             }
         }
