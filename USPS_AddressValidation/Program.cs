@@ -9,7 +9,7 @@ class Program
     //Token Auhtorization
     private static readonly string tokenEndpoint = "https://apis.usps.com/oauth2/v3/token";
 
-    //Replace clientID and clientSecrect with yours own from your registered account with USPS
+    //Replace clientID and clientSecrect with yours which can be retrieved from your registered account with USPS
     private static readonly string clientId = "xxxxxxxxxxxxx"; 
     private static readonly string clientSecret = "xxxxxxxxx";
 
