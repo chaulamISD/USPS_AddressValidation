@@ -25,13 +25,14 @@ class Program
         string State = "CA";
         string Zip = "";
 
-        string requestAddress;
-        if (Zip == "") {
-            requestAddress = "streetAddress=" + Address1 + "&secondaryAddress=" + Address2 + "&city=" + City + "&state=" + State;
-        }
-        else  {
-            requestAddress = "streetAddress=" + Address1 + "&secondaryAddress=" + Address2 + "&city=" + City + "&state=" + State + "&ZIPCode=" + Zip;
-        }
+        Address1 = System.Web.HttpUtility.UrlEncode(Address1);
+        Address2 = System.Web.HttpUtility.UrlEncode(Address2);
+        City = System.Web.HttpUtility.UrlEncode(City);
+
+        string requestAddress = "streetAddress=" + Address1 + "&secondaryAddress=" + Address2 + "&city=" + City + "&state=" + State + "&ZIPCode=" + Zip;
+
+        //Remove Zip parameter when it's not provided
+        if (Zip == "") { requestAddress = requestAddress.Replace("&ZIPCode=", ""); }
 
         requestUrl = $"{requestUrl + requestAddress}";
 
